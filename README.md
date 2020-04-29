@@ -37,10 +37,10 @@ See the classroom instruction and code comments for more details on each of thes
 
 #### MP.7 Number of keypoints and neighborhood size
 Number of keypoints:
-<img src="images/number_of_keypoints.png" width="820" height="248" />
+<img src="images/number_of_keypoints.png" />
 
 Keypoint size:
-<img src="images/size_of_keypoints.png" width="820" height="248" />
+<img src="images/size_of_keypoints.png" />
 
 #### MP.8 Tested combinations of detectors and descriptors
 The most matches are obtained when using ORB detector with SIFT descriptor. 
