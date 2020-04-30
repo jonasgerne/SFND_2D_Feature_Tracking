@@ -42,6 +42,8 @@ Implemented using the functions defined in the header
 
 #### MP.3 Removing outliers
 Using the `cv::Rect::contains` function outliers can be easily removed.
+Set `rectVis` to true for the following visualization.
+
 <img src="images/rect_filter.png" />
 
 #### MP.4, MP.5 and MP.6
@@ -89,7 +91,8 @@ The most matches are obtained when using ORB detector with SIFT descriptor.
 
 #### MP.9 Performance
 
-`t_total` gives the combined time of keypoint and descriptor extraction.
+`t_total` gives the combined time of keypoint and descriptor extraction. All results were obtained using all ten images.
+Regarding only the time for keypoint detection and descriptor extraction, based on my experiments I recommend either a combination of FAST detection with BRIEF or ORB descriptors. While ORB descriptors lead to a little bit more matches, they take a lot more time. Third comes the Harris detector with BRIEF descriptors, however, the number of matches is already quite lower. 
 
 | Detector  | Descriptor | NoFMatches | t_keypoints | t_descriptors | t_total  |
 |-----------|------------|------------|-------------|---------------|----------|
