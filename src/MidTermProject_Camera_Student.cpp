@@ -47,6 +47,8 @@ int main(int argc, const char *argv[]) {
     double t_keypoints{0.0};
     double t_descriptors{0.0};
 
+    bool rectVis = false;
+
     std::string log_filename = dataPath + "results/test.csv";
     std::ofstream outfile;
     outfile.open(log_filename, std::ios_base::app);
@@ -117,6 +119,15 @@ int main(int argc, const char *argv[]) {
                             keypoints_focused.push_back(keypoint);
                     }
                     keypoints.swap(keypoints_focused);
+                }
+                if (rectVis) {
+                    cv::Mat visImage = imgGray.clone();
+                    cv::drawKeypoints(img, keypoints, visImage, cv::Scalar::all(-1), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+                    cv::rectangle(visImage, vehicleRect, cv::Scalar(0, 0, 255));
+                    std::string windowName = "Focus Rectangle with Remaining Keypoints";
+                    cv::namedWindow(windowName, 6);
+                    imshow(windowName, visImage);
+                    cv::waitKey(0);
                 }
                 //// EOF STUDENT ASSIGNMENT
                 /*float nof_keypoins(keypoints.size());

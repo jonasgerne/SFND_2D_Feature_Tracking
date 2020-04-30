@@ -34,6 +34,19 @@ See the classroom instruction and code comments for more details on each of thes
 4. Run it: `./2D_feature_tracking`.
 
 ## Results
+#### MP.1 Databuffer
+I opted for a simple implementation using a `std::vector`, deleting the first element if the size is greater or equal than two. Other options would be the actual databuffer from the Boost library or using a queue.
+
+#### MP.2 Detectors
+Implemented using the functions defined in the header
+
+#### MP.3 Removing outliers
+Using the `cv::Rect::contains` function outliers can be easily removed.
+<img src="images/rect_filter.png" />
+
+#### MP.4, MP.5 and MP.6
+These were implemented following the exercises in the lessons.
+
 
 #### MP.7 Number of keypoints and neighborhood size
 Number of keypoints:
@@ -43,6 +56,7 @@ Keypoint size:
 <img src="images/size_of_keypoints.png" />
 
 #### MP.8 Tested combinations of detectors and descriptors
+AKAZE descriptors can only be used with AKAZE detectors. SIFT with ORB gave me an out of memory error, so this combination was not tested.
 The most matches are obtained when using ORB detector with SIFT descriptor. 
 
 | Detector  | Descriptor | NoFMatches | t_keypoints | t_descriptors | t_total  |
@@ -71,6 +85,8 @@ The most matches are obtained when using ORB detector with SIFT descriptor.
 | AKAZE     | AKAZE      | 1259       | 0,381787    | 0,289511      | 0,671298 |
 | SHITOMASI | BRIEF      | 944        | 0,076951    | 0,005831      | 0,082782 |
 | SIFT      | BRIEF      | 702        | 0,562185    | 0,004695      | 0,56688  |
+
+
 #### MP.9 Performance
 
 `t_total` gives the combined time of keypoint and descriptor extraction.
