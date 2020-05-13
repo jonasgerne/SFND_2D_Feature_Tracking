@@ -1,7 +1,7 @@
 #ifndef matching2D_hpp
 #define matching2D_hpp
 
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <sstream>
 #include <iomanip>

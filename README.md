@@ -59,64 +59,78 @@ Keypoint size:
 
 #### MP.8 Tested combinations of detectors and descriptors
 AKAZE descriptors can only be used with AKAZE detectors. SIFT with ORB gave me an out of memory error, so this combination was not tested.
-The most matches are obtained when using ORB detector with SIFT descriptor. 
+The most matches are obtained when using BRISK detector and BRIEF descriptor.
 
 | Detector  | Descriptor | NoFMatches | t_keypoints | t_descriptors | t_total  |
 |-----------|------------|------------|-------------|---------------|----------|
-| ORB       | SIFT       | 17174      | 0,0421      | 0,155143      | 0,197243 |
-| ORB       | FREAK      | 16411      | 0,04169     | 0,201233      | 0,242923 |
-| ORB       | ORB        | 15990      | 0,040569    | 0,069039      | 0,109607 |
-| ORB       | BRIEF      | 15229      | 0,106922    | 0,003929      | 0,11085  |
-| BRISK     | SIFT       | 14684      | 1,628167    | 0,146596      | 1,774763 |
-| BRISK     | FREAK      | 13038      | 1,613648    | 0,205103      | 1,818751 |
-| BRISK     | ORB        | 11512      | 1,606406    | 0,06912       | 1,675526 |
-| BRISK     | BRIEF      | 10002      | 1,616963    | 0,00672       | 1,623684 |
-| FAST      | SIFT       | 8298       | 0,005616    | 0,081616      | 0,087232 |
-| FAST      | FREAK      | 7252       | 0,005495    | 0,203483      | 0,208978 |
-| FAST      | ORB        | 6371       | 0,005546    | 0,019083      | 0,02463  |
-| FAST      | BRIEF      | 5290       | 0,005489    | 0,004335      | 0,009824 |
-| HARRIS    | SIFT       | 4191       | 0,050935    | 0,069998      | 0,120933 |
-| HARRIS    | FREAK      | 4027       | 0,049465    | 0,196853      | 0,246318 |
-| HARRIS    | ORB        | 3882       | 0,05068     | 0,017864      | 0,068544 |
-| HARRIS    | BRIEF      | 3718       | 0,050415    | 0,001948      | 0,052363 |
-| SHITOMASI | SIFT       | 3544       | 0,058508    | 0,073326      | 0,131834 |
-| SHITOMASI | FREAK      | 2617       | 0,062519    | 0,201279      | 0,263798 |
-| SIFT      | SIFT       | 2098       | 0,499573    | 0,400291      | 0,899864 |
-| SHITOMASI | ORB        | 1851       | 0,081659    | 0,021665      | 0,103324 |
-| SIFT      | FREAK      | 1298       | 0,545766    | 0,205627      | 0,751392 |
-| AKAZE     | AKAZE      | 1259       | 0,381787    | 0,289511      | 0,671298 |
-| SHITOMASI | BRIEF      | 944        | 0,076951    | 0,005831      | 0,082782 |
-| SIFT      | BRIEF      | 702        | 0,562185    | 0,004695      | 0,56688  |
+| BRISK     | BRIEF      | 1704       | 1.633042    | 0.006727      | 1.639769 |
+| BRISK     | SIFT       | 1646       | 1.631513    | 0.145356      | 1.77687  |
+| BRISK     | BRISK      | 1570       | 1.622238    | 1.399032      | 3.02127  |
+| BRISK     | FREAK      | 1526       | 1.620089    | 0.208242      | 1.828331 |
+| BRISK     | ORB        | 1510       | 1.622184    | 0.069174      | 1.691358 |
+| AKAZE     | AKAZE      | 1259       | 0.38018     | 0.291637      | 0.671817 |
+| FAST      | BRIEF      | 1099       | 0.005653    | 0.004295      | 0.009948 |
+| FAST      | ORB        | 1081       | 0.005621    | 0.018966      | 0.024587 |
+| FAST      | SIFT       | 1046       | 0.005802    | 0.081838      | 0.08764  |
+| SHITOMASI | BRIEF      | 944        | 0.058567    | 0.003775      | 0.062342 |
+| SHITOMASI | SIFT       | 927        | 0.058046    | 0.071148      | 0.129194 |
+| SHITOMASI | ORB        | 907        | 0.058056    | 0.018794      | 0.07685  |
+| FAST      | BRISK      | 899        | 0.005654    | 1.398523      | 1.404177 |
+| FAST      | FREAK      | 881        | 0.005655    | 0.203262      | 0.208917 |
+| SIFT      | SIFT       | 800        | 0.533202    | 0.45117       | 0.984372 |
+| SHITOMASI | BRISK      | 767        | 0.05822     | 1.386309      | 1.444529 |
+| SHITOMASI | FREAK      | 766        | 0.057796    | 0.201478      | 0.259274 |
+| ORB       | SIFT       | 763        | 0.042424    | 0.158751      | 0.201176 |
+| ORB       | ORB        | 761        | 0.04263     | 0.071302      | 0.113931 |
+| ORB       | BRISK      | 751        | 0.04382     | 1.382738      | 1.426558 |
+| SIFT      | BRIEF      | 702        | 0.561426    | 0.00422       | 0.565646 |
+| SIFT      | FREAK      | 596        | 0.5479      | 0.210281      | 0.75818  |
+| SIFT      | BRISK      | 592        | 0.559791    | 1.411377      | 1.971168 |
+| ORB       | BRIEF      | 545        | 0.103089    | 0.003688      | 0.106777 |
+| ORB       | FREAK      | 421        | 0.043338    | 0.201429      | 0.244767 |
+| HARRIS    | BRIEF      | 174        | 0.052716    | 0.001997      | 0.054712 |
+| HARRIS    | ORB        | 164        | 0.049771    | 0.018715      | 0.068486 |
+| HARRIS    | SIFT       | 164        | 0.050603    | 0.069967      | 0.12057  |
+| HARRIS    | FREAK      | 145        | 0.04972     | 0.198383      | 0.248103 |
+| HARRIS    | BRISK      | 142        | 0.050419    | 1.385083      | 1.435502 |
 
 
 #### MP.9 Performance
 
 `t_total` gives the combined time of keypoint and descriptor extraction. All results were obtained using all ten images.
-Regarding only the time for keypoint detection and descriptor extraction, based on my experiments I recommend either a combination of FAST detection with BRIEF or ORB descriptors. While ORB descriptors lead to a little bit more matches, they take a lot more time. Third comes the Harris detector with BRIEF descriptors, however, the number of matches is already quite lower. 
+Regarding only the time for keypoint detection and descriptor extraction, based on my experiments I recommend either a 
+combination of FAST detection with BRIEF or ORB descriptors. While ORB descriptors lead to a little bit more matches, 
+they take a lot more time. Third comes the HARRIS detector with BRIEF descriptors, however, the number of matches is already quite lower. 
 
 | Detector  | Descriptor | NoFMatches | t_keypoints | t_descriptors | t_total  |
 |-----------|------------|------------|-------------|---------------|----------|
-| FAST      | BRIEF      | 5290       | 0,005489    | 0,004335      | 0,009824 |
-| FAST      | ORB        | 6371       | 0,005546    | 0,019083      | 0,02463  |
-| HARRIS    | BRIEF      | 3718       | 0,050415    | 0,001948      | 0,052363 |
-| HARRIS    | ORB        | 3882       | 0,05068     | 0,017864      | 0,068544 |
-| SHITOMASI | BRIEF      | 944        | 0,076951    | 0,005831      | 0,082782 |
-| FAST      | SIFT       | 8298       | 0,005616    | 0,081616      | 0,087232 |
-| SHITOMASI | ORB        | 1851       | 0,081659    | 0,021665      | 0,103324 |
-| ORB       | ORB        | 15990      | 0,040569    | 0,069039      | 0,109607 |
-| ORB       | BRIEF      | 15229      | 0,106922    | 0,003929      | 0,11085  |
-| HARRIS    | SIFT       | 4191       | 0,050935    | 0,069998      | 0,120933 |
-| SHITOMASI | SIFT       | 3544       | 0,058508    | 0,073326      | 0,131834 |
-| ORB       | SIFT       | 17174      | 0,0421      | 0,155143      | 0,197243 |
-| FAST      | FREAK      | 7252       | 0,005495    | 0,203483      | 0,208978 |
-| ORB       | FREAK      | 16411      | 0,04169     | 0,201233      | 0,242923 |
-| HARRIS    | FREAK      | 4027       | 0,049465    | 0,196853      | 0,246318 |
-| SHITOMASI | FREAK      | 2617       | 0,062519    | 0,201279      | 0,263798 |
-| SIFT      | BRIEF      | 702        | 0,562185    | 0,004695      | 0,56688  |
-| AKAZE     | AKAZE      | 1259       | 0,381787    | 0,289511      | 0,671298 |
-| SIFT      | FREAK      | 1298       | 0,545766    | 0,205627      | 0,751392 |
-| SIFT      | SIFT       | 2098       | 0,499573    | 0,400291      | 0,899864 |
-| BRISK     | BRIEF      | 10002      | 1,616963    | 0,00672       | 1,623684 |
-| BRISK     | ORB        | 11512      | 1,606406    | 0,06912       | 1,675526 |
-| BRISK     | SIFT       | 14684      | 1,628167    | 0,146596      | 1,774763 |
-| BRISK     | FREAK      | 13038      | 1,613648    | 0,205103      | 1,818751 |
+| FAST      | BRIEF      | 1099       | 0.005653    | 0.004295      | 0.009948 |
+| FAST      | ORB        | 1081       | 0.005621    | 0.018966      | 0.024587 |
+| HARRIS    | BRIEF      | 174        | 0.052716    | 0.001997      | 0.054712 |
+| SHITOMASI | BRIEF      | 944        | 0.058567    | 0.003775      | 0.062342 |
+| HARRIS    | ORB        | 164        | 0.049771    | 0.018715      | 0.068486 |
+| SHITOMASI | ORB        | 907        | 0.058056    | 0.018794      | 0.07685  |
+| FAST      | SIFT       | 1046       | 0.005802    | 0.081838      | 0.08764  |
+| ORB       | BRIEF      | 545        | 0.103089    | 0.003688      | 0.106777 |
+| ORB       | ORB        | 761        | 0.04263     | 0.071302      | 0.113931 |
+| HARRIS    | SIFT       | 164        | 0.050603    | 0.069967      | 0.12057  |
+| SHITOMASI | SIFT       | 927        | 0.058046    | 0.071148      | 0.129194 |
+| ORB       | SIFT       | 763        | 0.042424    | 0.158751      | 0.201176 |
+| FAST      | FREAK      | 881        | 0.005655    | 0.203262      | 0.208917 |
+| ORB       | FREAK      | 421        | 0.043338    | 0.201429      | 0.244767 |
+| HARRIS    | FREAK      | 145        | 0.04972     | 0.198383      | 0.248103 |
+| SHITOMASI | FREAK      | 766        | 0.057796    | 0.201478      | 0.259274 |
+| SIFT      | BRIEF      | 702        | 0.561426    | 0.00422       | 0.565646 |
+| AKAZE     | AKAZE      | 1259       | 0.38018     | 0.291637      | 0.671817 |
+| SIFT      | FREAK      | 596        | 0.5479      | 0.210281      | 0.75818  |
+| SIFT      | SIFT       | 800        | 0.533202    | 0.45117       | 0.984372 |
+| FAST      | BRISK      | 899        | 0.005654    | 1.398523      | 1.404177 |
+| ORB       | BRISK      | 751        | 0.04382     | 1.382738      | 1.426558 |
+| HARRIS    | BRISK      | 142        | 0.050419    | 1.385083      | 1.435502 |
+| SHITOMASI | BRISK      | 767        | 0.05822     | 1.386309      | 1.444529 |
+| BRISK     | BRIEF      | 1704       | 1.633042    | 0.006727      | 1.639769 |
+| BRISK     | ORB        | 1510       | 1.622184    | 0.069174      | 1.691358 |
+| BRISK     | SIFT       | 1646       | 1.631513    | 0.145356      | 1.77687  |
+| BRISK     | FREAK      | 1526       | 1.620089    | 0.208242      | 1.828331 |
+| SIFT      | BRISK      | 592        | 0.559791    | 1.411377      | 1.971168 |
+| BRISK     | BRISK      | 1570       | 1.622238    | 1.399032      | 3.02127  |

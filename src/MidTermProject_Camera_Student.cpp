@@ -1,19 +1,14 @@
 /* INCLUDES FOR THIS PROJECT */
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include <iomanip>
 #include <vector>
-#include <cmath>
 #include <limits>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/features2d.hpp>
-#include <opencv2/xfeatures2d.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
 #include <list>
-#include <numeric>
 
 #include "dataStructures.h"
 #include "matching2D.hpp"
@@ -41,11 +36,41 @@ int main(int argc, const char *argv[]) {
     std::vector<DataFrame> dataBuffer; // list of data frames which are held in memory at the same time
     bool bVis = false;            // visualize results
 
-    std::vector<std::string> detectors{"AKAZE"}; //"SHITOMASI", "HARRIS", "FAST", "BRISK", "ORB"}; //, "SIFT"};
-    std::vector<std::string> descriptors{"AKAZE"};
-    std::size_t total_matches = 0;
-    double t_keypoints{0.0};
-    double t_descriptors{0.0};
+    // all possible detector / descriptor combinations
+    std::vector<std::pair<std::string, std::string>> combinations{{"AKAZE", "AKAZE"},
+                                                                  {"BRISK", "BRIEF"},
+                                                                  {"BRISK", "BRISK"},
+                                                                  {"BRISK", "FREAK"},
+                                                                  {"BRISK", "ORB"},
+                                                                  {"BRISK", "SIFT"},
+                                                                  {"FAST", "BRIEF"},
+                                                                  {"FAST", "BRISK"},
+                                                                  {"FAST", "FREAK"},
+                                                                  {"FAST", "ORB"},
+                                                                  {"FAST", "SIFT"},
+                                                                  {"HARRIS", "BRIEF"},
+                                                                  {"HARRIS", "BRISK"},
+                                                                  {"HARRIS", "FREAK"},
+                                                                  {"HARRIS", "ORB"},
+                                                                  {"HARRIS", "SIFT"},
+                                                                  {"ORB", "BRIEF"},
+                                                                  {"ORB", "BRISK"},
+                                                                  {"ORB", "FREAK"},
+                                                                  {"ORB", "ORB"},
+                                                                  {"ORB", "SIFT"},
+                                                                  {"SHITOMASI", "BRIEF"},
+                                                                  {"SHITOMASI", "BRISK"},
+                                                                  {"SHITOMASI", "FREAK"},
+                                                                  {"SHITOMASI", "ORB"},
+                                                                  {"SHITOMASI", "SIFT"},
+                                                                  {"SIFT", "BRIEF"},
+                                                                  {"SIFT", "BRISK"},
+                                                                  {"SIFT", "FREAK"},
+                                                                  {"SIFT", "SIFT"}};
+
+    std::size_t total_matches;
+    double t_keypoints;
+    double t_descriptors;
 
     bool rectVis = false;
 
@@ -55,11 +80,11 @@ int main(int argc, const char *argv[]) {
     outfile << "Detector;Descriptor;NoFMatches;t_keypoints;t_descriptors;t_total" << std::endl;
 
     /* MAIN LOOP OVER ALL IMAGES */
-    for (auto& detect: detectors) {
-        for (auto &descrip: descriptors) {
+    for (const auto& [detect, descrip]: combinations) {
             dataBuffer.clear();
             t_keypoints = 0.0;
             t_descriptors = 0.0;
+            total_matches = 0;
             for (size_t imgIndex = 0; imgIndex <= imgEndIndex - imgStartIndex; imgIndex++) {
                 /* LOAD IMAGE INTO BUFFER */
 
@@ -240,7 +265,6 @@ int main(int argc, const char *argv[]) {
             outfile << detect << ";" << descrip << ";" << total_matches << ";" << std::to_string(t_keypoints) << ";"
                     << std::to_string(t_descriptors) << ";" << std::to_string(t_keypoints + t_descriptors)
                     << std::endl;
-        }
     }
     outfile.close();
 

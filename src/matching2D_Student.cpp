@@ -1,13 +1,16 @@
-#include <numeric>
 #include "matching2D.hpp"
 
 using namespace std;
 
 // Find best matches for keypoints in two camera images based on several matching methods
-void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource, std::vector<cv::KeyPoint> &kPtsRef, cv::Mat &descSource,
+void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource,
+                      std::vector<cv::KeyPoint> &kPtsRef,
+                      cv::Mat &descSource,
                       cv::Mat &descRef,
-                      std::vector<cv::DMatch> &matches, const std::string& descriptorType, const std::string& matcherType,
-                      const std::string& selectorType) {
+                      std::vector<cv::DMatch> &matches,
+                      const std::string &descriptorType,
+                      const std::string &matcherType,
+                      const std::string &selectorType) {
     // configure matcher
     bool crossCheck = false;
     cv::Ptr<cv::DescriptorMatcher> matcher;
@@ -21,7 +24,10 @@ void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource, std::vector<cv::Key
         matcher = cv::BFMatcher::create(normType, crossCheck);
     } else if (matcherType == "MAT_FLANN") {
         if (descriptorType == "DES_BINARY")
-            matcher = cv::makePtr<cv::FlannBasedMatcher>(cv::FlannBasedMatcher(cv::makePtr<cv::flann::LshIndexParams>(12, 20, 2)));
+            matcher =
+                cv::makePtr<cv::FlannBasedMatcher>(cv::FlannBasedMatcher(cv::makePtr<cv::flann::LshIndexParams>(12,
+                                                                                                                20,
+                                                                                                                2)));
         else
             matcher = cv::FlannBasedMatcher::create();
         std::cout << "FLANN matching" << std::endl;;
@@ -37,7 +43,7 @@ void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource, std::vector<cv::Key
 
         std::cout << knn_matches[0][1].distance << std::endl;
         // filter matches using descriptor distance ratio test
-        for (auto &knn_match : knn_matches){
+        for (auto &knn_match : knn_matches) {
             if ((!knn_match.empty() && (knn_match[0].distance) < 0.8f * knn_match[1].distance))
                 matches.push_back(knn_match[0]);
         }
@@ -78,7 +84,8 @@ descKeypoints(vector<cv::KeyPoint> &keypoints, cv::Mat &img, cv::Mat &descriptor
 // Detect keypoints in image using the traditional Shi-Thomasi detector
 void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool bVis) {
     // compute detector parameters based on image size
-    int blockSize = 4;       //  size of an average block for computing a derivative covariation matrix over each pixel neighborhood
+    int blockSize =
+        4;       //  size of an average block for computing a derivative covariation matrix over each pixel neighborhood
     double maxOverlap = 0.0; // max. permissible overlap between two features in %
     double minDistance = (1.0 - maxOverlap) * blockSize;
     int maxCorners = img.rows * img.cols / max(1.0, minDistance); // max. num. of keypoints
@@ -95,7 +102,7 @@ void detKeypointsShiTomasi(vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool b
     for (auto &corner : corners) {
         cv::KeyPoint newKeyPoint;
         newKeyPoint.pt = cv::Point2f(corner.x, corner.y);
-        newKeyPoint.size = blockSize;
+        newKeyPoint.size = (float)blockSize;
         keypoints.push_back(newKeyPoint);
     }
     t = ((double) cv::getTickCount() - t) / cv::getTickFrequency();
@@ -116,7 +123,8 @@ void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool
     // Detector parameters
     int blockSize = 2;     // for every pixel, a blockSize × blockSize neighborhood is considered
     int apertureSize = 3;  // aperture parameter for Sobel operator (must be odd)
-    int minResponse = 100; // minimum value for a corner in the 8bit scaled response matrix, only consider values greater in NMS
+    int minResponse =
+        100; // minimum value for a corner in the 8bit scaled response matrix, only consider values greater in NMS
     double k = 0.04;       // Harris parameter (see equation for details)
 
     // Detect Harris corners and normalize output
@@ -132,7 +140,7 @@ void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool
             if (val > minResponse) {
                 // Create a new keypoint
                 cv::KeyPoint new_keypoint(cv::Point2f(c, r), 2.0f * (float) apertureSize);
-                new_keypoint.response = val;
+                new_keypoint.response = (float)val;
 
                 bool is_overlap = false;
                 // Loop over existing keypoints to check if there are overlaps
@@ -150,7 +158,6 @@ void detKeypointsHarris(std::vector<cv::KeyPoint> &keypoints, cv::Mat &img, bool
                 if (!is_overlap)
                     keypoints.push_back(new_keypoint);
             }
-
         }
     }
     // visualize results
